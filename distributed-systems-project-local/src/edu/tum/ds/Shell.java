@@ -3,18 +3,23 @@ package edu.tum.ds;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/** This class contain the main function that will be executed when running the jar.
+ * @author Amjad
+ *
+ */
 public class Shell {
 
 	/**
-	 * Entry point of the application, the main function is shell runner
-	 * 
+	 * Entry point of the application, the main function is shell runner 
+	 *  that interacts with the user within the defined protocol.
 	 * @param args
 	 *            : Args passed on startup are ignored.
 	 */
 	public static void main(String[] args) {
+		// initialize buffer reader to read user input. 
 		BufferedReader cons = new BufferedReader(new InputStreamReader(
 				System.in));
-
+		// the flag to stop shell interaction
 		boolean quit = false;
 		while (!quit) {
 			System.out.print(UserFacingMessages.ECHO_PROMPT);

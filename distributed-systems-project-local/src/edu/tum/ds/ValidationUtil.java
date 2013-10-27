@@ -3,22 +3,40 @@ package edu.tum.ds;
 import java.util.Arrays;
 import java.util.List;
 
+/** The class contains utility functions that aim to help the shell class 
+ * in validating user input before executing the commands.
+ * @author Amjad
+ *
+ */
 public class ValidationUtil {
 
-	private static ValidationUtil validationinstance = null;
+	private static ValidationUtil VALIDATION_INSTANCE = null;
+	
+	/** A list that contains all the options of log Levels
+	 * 
+	 */
 	public static final List<String> LOG_LEVELS = Arrays.asList("ALL", "DEBUG",
 			"INFO", "WARN", "ERROR", "FATAL", "OFF");
 
+	/** Singleton provider.
+	 * @return
+	 */
 	public static ValidationUtil getInstance() {
-		if (validationinstance == null) {
-			validationinstance = new ValidationUtil();
+		if (VALIDATION_INSTANCE == null) {
+			VALIDATION_INSTANCE = new ValidationUtil();
 		}
-		return validationinstance;
+		return VALIDATION_INSTANCE;
 	}
 
 	private ValidationUtil() {
 	}
 
+	/** Validates the ip/host and port input by user.
+	 *  only validates the number of params, the size of the params and the range of port
+	 * @param tokens the user input
+	 * @return true/false status
+	 * @throws IllegalArgumentException
+	 */
 	public boolean isValidConnectionParams(String[] tokens)
 			throws IllegalArgumentException {
 
@@ -44,7 +62,13 @@ public class ValidationUtil {
 
 		return true;
 	}
-
+	
+	/** Validates the message to sent input by user.
+	 *  only validates the number of params, the size of the params 
+	 * @param tokens the user input
+	 * @return true/false status
+	 * @throws IllegalArgumentException
+	 */
 	public boolean isValidMessage(String[] tokens) {
 		if (tokens == null) {
 			throw new IllegalArgumentException(UserFacingMessages.GENERAL_ILLIGAL_ARGUMENT);
@@ -62,7 +86,13 @@ public class ValidationUtil {
 
 		return true;
 	}
-
+	
+	/** Validates the log level input by user.
+	 *  only validates the number of params, the validity of the new log level.
+	 * @param tokens the user input
+	 * @return true/false status
+	 * @throws IllegalArgumentException
+	 */
 	public boolean isValidLogLevel(String[] tokens) {
 		if (tokens == null) {
 			throw new IllegalArgumentException(UserFacingMessages.GENERAL_ILLIGAL_ARGUMENT);
@@ -79,6 +109,10 @@ public class ValidationUtil {
 		return true;
 	}
 
+	/** Validates the port number if in the range of ports
+	 * @param str
+	 * @return
+	 */
 	private boolean isValidPort(String str) {
 		try {
 			double d = Double.parseDouble(str);

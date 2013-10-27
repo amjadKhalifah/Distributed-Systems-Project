@@ -1,5 +1,9 @@
 package edu.tum.ds;
 
+/**
+ * @author Amjad 
+ * The class contains all the user facing strings of the application.
+ */
 public class UserFacingMessages {
 
 	
