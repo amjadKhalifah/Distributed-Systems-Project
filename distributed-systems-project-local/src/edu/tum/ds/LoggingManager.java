@@ -30,7 +30,6 @@ public final class LoggingManager {
 		try {
 			fa = new FileAppender(pLayout, logDir, true );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		logger.addAppender(fa);

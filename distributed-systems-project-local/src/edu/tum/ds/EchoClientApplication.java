@@ -50,12 +50,12 @@ public class EchoClientApplication {
 						System.out.println("connecting to " + tokens[1] + "--"
 								+ tokens[2]);
 						System.out.println("Display the result");
-						logger.debug("connecting to....");
+						logger.info("Connection established with host/server: "+tokens[1]+", port: "+tokens[2]);
 					}
 					break;
 				case DISCONNECT:
 					System.out.println("command disconnect");
-					logger.debug("disconnect");
+					logger.info("Connection closed.");
 					break;
 				case SEND:
 					if (validationUtil.isValidMessage(tokens)) {
@@ -66,32 +66,30 @@ public class EchoClientApplication {
 																				// index
 																				// after
 																				// 'send'
-						logger.debug("Messess Send");
+						logger.info("Message sent to echo server: '"+ input.trim().substring(4)+"'.");
+						logger.info("Message received from echo server: '"+ input.trim().substring(4)+"'.");
 					}
 					break;
 				case LOG_LEVEL:
 					if (validationUtil.isValidLogLevel(tokens)) {
-						// TODO set log level and print the new log level
-						System.out.println("command log level set to "
-								+ tokens[1]);
-						logger.debug("Log Level Set");
+						LoggingManager.SetLoggerLevel(tokens[1]);
+						logger.info("Log Level Set to"+ tokens[1]);
 					}
 					break;
 				case HELP:
 					System.out.println(UserFacingMessages.HELP_TEXT);
-					logger.debug("Help Text");
+					logger.info("Help Text provided to user.");
 					break;
 
 				case UN_SUPPORTED:
 					System.out.println(UserFacingMessages.UN_SUPPORTED_COMMAND);
-					logger.debug("Command Supported");
+					logger.warn("User entered unsupported command.");
 					break;
 
 				case QUIT:
-					System.out.println("command quit");
 					// TODO call disconnect
 					quit = true;
-					logger.debug("Quit");
+					logger.debug("Quit program based on user request.");
 					break;
 
 				default:
@@ -101,12 +99,11 @@ public class EchoClientApplication {
 			} catch (Exception e) {
 				// report issue to user
 				System.out.println(e.getMessage());
+				logger.error("Exception:"+e);
 
 			}
 
 		}
-		System.out.println("EchoClient exiting..");
-		logger.debug("EchoClient exiting..");
 
 	}
 

@@ -1,7 +1,6 @@
 package edu.tum.ds;
 
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 
@@ -21,6 +20,8 @@ public class Shell {
 		logger.info("Starting Application");
 		EchoClientApplication echoclientapplication = new EchoClientApplication();
 		echoclientapplication.startApplication();
+		logger.info("Exiting Application");
+		System.out.println("Exiting Application");
 				
 	}
 
