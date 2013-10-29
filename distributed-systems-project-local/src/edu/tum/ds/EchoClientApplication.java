@@ -3,6 +3,8 @@ package edu.tum.ds;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import org.apache.log4j.Logger;
+
 public class EchoClientApplication {
 
 	public EchoClientApplication() {
@@ -16,10 +18,12 @@ public class EchoClientApplication {
 	 *            : Args passed on startup are ignored.
 	 */
 	public void startApplication() {
-
+		Logger logger = LoggingManager.CreateLogger(EchoClientApplication.class);
+		
 		// initialize buffer reader to read user input.
 		BufferedReader cons = new BufferedReader(new InputStreamReader(
 				System.in));
+		logger.debug("Input Stream Reader created");
 		// the flag to stop shell interaction
 		boolean quit = false;
 		while (!quit) {
@@ -46,10 +50,12 @@ public class EchoClientApplication {
 						System.out.println("connecting to " + tokens[1] + "--"
 								+ tokens[2]);
 						System.out.println("Display the result");
+						logger.debug("connecting to....");
 					}
 					break;
 				case DISCONNECT:
 					System.out.println("command disconnect");
+					logger.debug("disconnect");
 					break;
 				case SEND:
 					if (validationUtil.isValidMessage(tokens)) {
@@ -60,6 +66,7 @@ public class EchoClientApplication {
 																				// index
 																				// after
 																				// 'send'
+						logger.debug("Messess Send");
 					}
 					break;
 				case LOG_LEVEL:
@@ -67,20 +74,24 @@ public class EchoClientApplication {
 						// TODO set log level and print the new log level
 						System.out.println("command log level set to "
 								+ tokens[1]);
+						logger.debug("Log Level Set");
 					}
 					break;
 				case HELP:
 					System.out.println(UserFacingMessages.HELP_TEXT);
+					logger.debug("Help Text");
 					break;
 
 				case UN_SUPPORTED:
 					System.out.println(UserFacingMessages.UN_SUPPORTED_COMMAND);
+					logger.debug("Command Supported");
 					break;
 
 				case QUIT:
 					System.out.println("command quit");
 					// TODO call disconnect
 					quit = true;
+					logger.debug("Quit");
 					break;
 
 				default:
@@ -95,6 +106,7 @@ public class EchoClientApplication {
 
 		}
 		System.out.println("EchoClient exiting..");
+		logger.debug("EchoClient exiting..");
 
 	}
 
