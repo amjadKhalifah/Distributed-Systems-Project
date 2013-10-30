@@ -27,11 +27,15 @@ public final class LoggingManager {
 		String pattern = "%d{ISO8601} %p [%t] %c (%F:%L) - %m%n";
 		PatternLayout pLayout = new PatternLayout(pattern);
 		FileAppender fa = null;
+		ConsoleAppender ca = null;
 		try {
 			fa = new FileAppender(pLayout, logDir, true );
+			ca = new ConsoleAppender();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		logger.addAppender(ca);
 		logger.addAppender(fa);
 		loggerList.add(logger);
 		return logger;

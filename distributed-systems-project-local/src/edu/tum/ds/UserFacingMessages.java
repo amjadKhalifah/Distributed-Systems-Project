@@ -34,4 +34,6 @@ public class UserFacingMessages {
 	
 	public static final String UN_SUPPORTED_COMMAND = "Unknown command.\n"+ HELP_TEXT;
 	
+	public static final byte END_OF_MESSAGE = 13;
+	
 }

@@ -5,9 +5,16 @@ import java.io.InputStreamReader;
 
 import org.apache.log4j.Logger;
 
+import edu.tum.ds.client.ClientConnection;
+import edu.tum.ds.client.Connectable;
+
 public class EchoClientApplication {
 
+	private Connectable connection;
+	
+	
 	public EchoClientApplication() {
+		this.connection = new ClientConnection();
 	}
 
 	/**
@@ -47,27 +54,21 @@ public class EchoClientApplication {
 				switch (command) {
 				case CONNECT:
 					if (validationUtil.isValidConnectionParams(tokens)) {
-						System.out.println("connecting to " + tokens[1] + "--"
-								+ tokens[2]);
-						System.out.println("Display the result");
-						logger.info("Connection established with host/server: "+tokens[1]+", port: "+tokens[2]);
+						connection.connect(tokens[1], Integer.parseInt(tokens[2]));						
+						logger.info( new String (connection.receive()));
 					}
 					break;
-				case DISCONNECT:
-					System.out.println("command disconnect");
+				case DISCONNECT:		
+					connection.disconnect();
 					logger.info("Connection closed.");
 					break;
 				case SEND:
 					if (validationUtil.isValidMessage(tokens)) {
 
-						System.out.println("send" + input.trim().substring(4));// 4
-																				// is
-																				// the
-																				// index
-																				// after
-																				// 'send'
-						logger.info("Message sent to echo server: '"+ input.trim().substring(4)+"'.");
-						logger.info("Message received from echo server: '"+ input.trim().substring(4)+"'.");
+						connection.send(input.trim().substring(4).concat("\n").getBytes());	
+						connection.send(UserFacingMessages.END_OF_MESSAGE);
+						logger.info("Message sent to echo server: '"+ input.trim().substring(4)+"'.");						
+						logger.info("Message received from echo server: '"+ connection.receive() +"'.");						
 					}
 					break;
 				case LOG_LEVEL:
@@ -87,7 +88,7 @@ public class EchoClientApplication {
 					break;
 
 				case QUIT:
-					// TODO call disconnect
+					connection.disconnect(); 
 					quit = true;
 					logger.debug("Quit program based on user request.");
 					break;
