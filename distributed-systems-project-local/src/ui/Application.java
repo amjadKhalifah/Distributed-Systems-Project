@@ -1,14 +1,17 @@
-package edu.tum.ds;
+package ui;
 
 
 import org.apache.log4j.Logger;
+
+import edu.tum.ds.EchoClientApplication;
+import edu.tum.ds.LoggingManager;
 
 
 /** This class contain the main function that will be executed when running the jar.
  * @author Amjad
  *
  */
-public class Shell {
+public class Application {
 
 	/**
 	 * Entry point of the application, starts the application.
@@ -16,7 +19,7 @@ public class Shell {
 	 *            : Args passed on startup are ignored.
 	 */
 	public static void main(String[] args) {
-		Logger logger = LoggingManager.CreateLogger(Shell.class);
+		Logger logger = LoggingManager.CreateLogger(Application.class);
 		logger.info("Starting Application");
 		EchoClientApplication echoclientapplication = new EchoClientApplication();
 		echoclientapplication.startApplication();

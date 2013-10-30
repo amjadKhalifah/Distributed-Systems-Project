@@ -1,6 +1,5 @@
 package edu.tum.ds;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -20,23 +19,7 @@ public final class LoggingManager {
 	
 	public static Logger CreateLogger(Class claz)
 	{
-		// initialize logger
 		Logger logger = Logger.getLogger(claz);
-		String logDir = "logs_file/client.log";
-		//String pattern = "%d{ISO8601} %-5p [%t] %c: %m%n";
-		String pattern = "%d{ISO8601} %p [%t] %c (%F:%L) - %m%n";
-		PatternLayout pLayout = new PatternLayout(pattern);
-		FileAppender fa = null;
-		ConsoleAppender ca = null;
-		try {
-			fa = new FileAppender(pLayout, logDir, true );
-			ca = new ConsoleAppender();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		logger.addAppender(ca);
-		logger.addAppender(fa);
 		loggerList.add(logger);
 		return logger;
 	}	

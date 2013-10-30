@@ -68,13 +68,13 @@ public class EchoClientApplication {
 						connection.send(input.trim().substring(4).concat("\n").getBytes());	
 						connection.send(UserFacingMessages.END_OF_MESSAGE);
 						logger.info("Message sent to echo server: '"+ input.trim().substring(4)+"'.");						
-						logger.info("Message received from echo server: '"+ connection.receive() +"'.");						
+						logger.info("Message received from echo server: '"+ new String(connection.receive()).trim() +"'.");						
 					}
 					break;
 				case LOG_LEVEL:
 					if (validationUtil.isValidLogLevel(tokens)) {
 						LoggingManager.SetLoggerLevel(tokens[1]);
-						logger.info("Log Level Set to"+ tokens[1]);
+						logger.info("Log Level Set to: "+ tokens[1]);
 					}
 					break;
 				case HELP:
@@ -88,9 +88,9 @@ public class EchoClientApplication {
 					break;
 
 				case QUIT:
-					connection.disconnect(); 
 					quit = true;
-					logger.debug("Quit program based on user request.");
+					connection.disconnect(); 
+					logger.info("Quit program based on user request.");
 					break;
 
 				default:
@@ -99,8 +99,7 @@ public class EchoClientApplication {
 
 			} catch (Exception e) {
 				// report issue to user
-				System.out.println(e.getMessage());
-				logger.error("Exception:"+e);
+				logger.error(e.getMessage());
 
 			}
 
