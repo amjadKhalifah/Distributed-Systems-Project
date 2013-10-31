@@ -19,8 +19,7 @@ public class EchoClientApplication {
 	 * within the defined protocol.
 	 */
 	public void startApplication () {
-		Logger logger = LoggingManager
-				.CreateLogger ( EchoClientApplication.class );
+		Logger logger = LoggingManager.getInstance ().createLogger ( this.getClass () );
 
 		// initialize buffer reader to read user input.
 		BufferedReader cons = new BufferedReader ( new InputStreamReader (
@@ -51,7 +50,7 @@ public class EchoClientApplication {
 					if ( validationUtil.isValidConnectionParams ( tokens ) ) {
 						connection.connect ( tokens [ 1 ] ,
 								Integer.parseInt ( tokens [ 2 ] ) );
-						logger.info ( new String ( connection.receive () ) );
+						logger.info ( new String ( connection.receive () ).trim () );
 					}
 					break;
 				case DISCONNECT :
@@ -73,7 +72,7 @@ public class EchoClientApplication {
 					break;
 				case LOG_LEVEL :
 					if ( validationUtil.isValidLogLevel ( tokens ) ) {
-						LoggingManager.SetLoggerLevel ( tokens [ 1 ] );
+						LoggingManager.getInstance ().setLoggerLevel ( tokens [ 1 ] );
 						logger.info ( "Log Level Set to: " + tokens [ 1 ] );
 					}
 					break;

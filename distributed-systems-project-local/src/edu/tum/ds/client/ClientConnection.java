@@ -33,14 +33,20 @@ public class ClientConnection implements Connectable {
 					"Error in connecting to server" );
 		}
 	}
+			
 
 	@Override
 	public void send ( byte b ) throws ClientConnectionException {
 
 		try {
-
-			output.write ( b );
-			output.flush ();
+			
+			if ( isConnected () ) {
+				output.write ( b );
+				output.flush ();
+				
+			} else {
+				throw new ClientConnectionException ( " not connected to the server " );
+			}					
 
 		} catch ( IOException e ) {
 			// handle Exception
@@ -52,8 +58,14 @@ public class ClientConnection implements Connectable {
 	public void send ( byte [] data ) throws ClientConnectionException {
 
 		try {
-			this.output.write ( data );
-			this.output.flush ();
+			if ( isConnected () ) {
+				this.output.write ( data );
+				this.output.flush ();
+				
+			} else {
+				throw new ClientConnectionException ( " not connected to the server " );
+			}	
+			
 
 		} catch ( IOException exception ) {
 			// handle exception

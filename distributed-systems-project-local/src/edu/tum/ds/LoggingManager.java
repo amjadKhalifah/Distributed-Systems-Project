@@ -11,24 +11,32 @@ import org.apache.log4j.*;
  */
 public final class LoggingManager {
 
-	static HashSet < Logger > loggerList = new HashSet < Logger > ();
+	private HashSet < Logger > loggerList = new HashSet < Logger > ();
+	public static LoggingManager instance = null;
 
 	private LoggingManager () {
 
 	}
 
-	public static Logger CreateLogger ( Class claz ) {
+	public Logger createLogger ( Class claz ) {
 		Logger logger = Logger.getLogger ( claz );
 		loggerList.add ( logger );
 		return logger;
 	}
 
-	public static void SetLoggerLevel ( String newLevel ) {
+	public void setLoggerLevel ( String newLevel ) {
 		Level level = Level.toLevel ( newLevel );
 		Iterator < Logger > itr = loggerList.iterator ();
 		while ( itr.hasNext () ) {
 			Logger element = itr.next ();
 			element.setLevel ( level );
 		}
+	}
+	
+	public static LoggingManager getInstance ( ) {
+		if ( instance == null ){
+			instance = new LoggingManager ();			
+		}
+		return instance;
 	}
 }

@@ -19,7 +19,7 @@ public class Application {
 	 *            : Args passed on startup are ignored.
 	 */
 	public static void main(String[] args) {
-		Logger logger = LoggingManager.CreateLogger(Application.class);
+		Logger logger = LoggingManager.getInstance ().createLogger(Application.class);
 		logger.info("Starting Application");
 		EchoClientApplication echoclientapplication = new EchoClientApplication();
 		echoclientapplication.startApplication();
