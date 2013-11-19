@@ -3,6 +3,7 @@ package ui;
 
 import org.apache.log4j.Logger;
 
+
 import edu.tum.ds.EchoClientApplication;
 import edu.tum.ds.LoggingManager;
 
@@ -19,7 +20,7 @@ public class Application {
 	 *            : Args passed on startup are ignored.
 	 */
 	public static void main(String[] args) {
-		Logger logger = LoggingManager.getInstance ().createLogger(Application.class);
+		Logger logger = LoggingManager.createClientLogger(Application.class);
 		logger.info("Starting Application");
 		EchoClientApplication echoclientapplication = new EchoClientApplication();
 		echoclientapplication.startApplication();

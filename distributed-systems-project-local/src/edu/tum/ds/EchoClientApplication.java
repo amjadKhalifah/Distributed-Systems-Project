@@ -3,6 +3,8 @@ package edu.tum.ds;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import org.apache.log4j.Logger;
+
+import ui.Application;
 import edu.tum.ds.client.ClientConnection;
 import edu.tum.ds.client.Connectable;
 
@@ -19,7 +21,7 @@ public class EchoClientApplication {
 	 * within the defined protocol.
 	 */
 	public void startApplication () {
-		Logger logger = LoggingManager.getInstance ().createLogger ( this.getClass () );
+		Logger logger = LoggingManager.createClientLogger(this.getClass ());
 
 		// initialize buffer reader to read user input.
 		BufferedReader cons = new BufferedReader ( new InputStreamReader (
@@ -72,7 +74,7 @@ public class EchoClientApplication {
 					break;
 				case LOG_LEVEL :
 					if ( validationUtil.isValidLogLevel ( tokens ) ) {
-						LoggingManager.getInstance ().setLoggerLevel ( tokens [ 1 ] );
+						LoggingManager.SetLoggerLevel( tokens [ 1 ] );
 						logger.info ( "Log Level Set to: " + tokens [ 1 ] );
 					}
 					break;
